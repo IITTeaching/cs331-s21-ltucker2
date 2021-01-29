@@ -66,15 +66,16 @@ def integer_right_triangles(p):
       return 0
     counter = 0
     # Every pythagorean triple, except (8, 15, 17), is a multiple of (x,(x * x - 1) / 2, (x * x + 1)/2)
-    for x in range(p//4):
+    for x in range(p//3 + 1):
       side_a = x
-      side_b = (x * x - 1) / 2
-      side_c = (x * x + 1) / 2
+      side_b = (x * x / 4) - 1
+      side_c = (x * x / 4) + 2
+      if x % 2 == 1:
+        side_b = (x * x - 1) / 2
+        side_c = (x * x + 1) / 2
       perim = side_a + side_b + side_c
-      if x >= 3 and x % 2 == 1 and p % perim == 0:
+      if x > 3 and x % 4 != 2 and p % perim == 0:
         counter += 1
-    if p % (8 + 15 + 17) == 0:
-      counter += 1
     return counter
 
 def test3():

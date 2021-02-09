@@ -34,7 +34,17 @@ ROMEO_SOLILOQUY = """
 # Implement this function
 def compute_ngrams(toks, n=2):
     """Returns an n-gram dictionary based on the provided list of tokens."""
-    pass
+    my_dict = {}
+    tuple_size = n - 1
+    for i in range(len(toks) + 1 - n):
+      this_key = toks[i]
+      # print(this_key)
+      if this_key not in my_dict.keys():
+        my_dict[this_key] = [tuple(toks[i + 1: i + 1 + tuple_size])]
+      else:
+        my_dict[this_key].append(tuple(toks[i+1 : i + 1 + tuple_size]))
+    # print(my_dict)
+    return my_dict
 
 def test1():
     test1_1()
@@ -93,7 +103,35 @@ def test1_2():
 ################################################################################
 # Implement this function
 def gen_passage(ngram_dict, length=100):
-    pass
+    passage = ''
+    next_key = random.choice(sorted(ngram_dict.keys()))
+    passage += next_key
+    num_words = 1
+    for i in range(length):
+      if num_words >= length:
+        # print(passage)
+        return passage
+      next_tuple = random.choice(ngram_dict[next_key])
+      # print(ngram_dict[next_key])
+      # print(next_tuple)
+      for item in next_tuple:
+        next_key = item
+        passage += ' ' +  next_key
+        num_words += 1
+        if num_words >= length:
+          # print(passage)
+          return passage
+      if next_key not in sorted(ngram_dict.keys()):
+        next_key = random.choice(sorted(ngram_dict.keys()))
+        passage += ' ' + next_key
+        num_words += 1
+        if num_words >= length:
+          # print(passage)
+          return passage
+    passage = passage.strip()
+    # print(passage)
+    return passage
+
 
 # 50 Points
 def test2():

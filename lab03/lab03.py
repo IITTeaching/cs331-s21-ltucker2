@@ -237,8 +237,8 @@ class SuffixArray():
         """
         Returns all the positions of searchstr in the documented indexed by the suffix array.
         """
-          def comparison(x, y):
-            this_str = self.doc[x:]
+        def comparison(x, y):
+          this_str = self.doc[x:]
           # print(this_str, y)
           if len(y) <= len(this_str) and y == this_str[:len(y)]:
             return 0
